@@ -2,7 +2,10 @@
 
 MvvmCross is a cross-platform mvvm framework that enables developers to create cross platform apps. Additional support is available for [Xamarin.Forms](https://github.com/MvvmCross/MvvmCross-Forms) and the [Android support library](https://github.com/MvvmCross/MvvmCross-AndroidSupport). Lots of [plugins](https://github.com/MvvmCross/MvvmCross-Plugins) are available as well.
 
-See the official [MvvmCross blog](http://mvvmcross.com/) for the latest news!
+## Documentation & blog
+
+* See our [official website](http://www.mvvmcross.com/docs) for an extensive set of documentation!
+* To stay up-to-date with the latest news go to the [MvvmCross blog](http://www.mvvmcross.com/blog)!
 
 ### Get started
 
@@ -72,6 +75,8 @@ For manual project creation install the necessary packages from [Nuget](https://
 * [DeapSquatter's blog][deapsquatter]
 * [Odenaxos's blog][odenaxos]
 * [Greg's blog][gshackles] 
+* [Kerry's blog][lothrop]
+* [Jammer's blog](http://www.jammer.biz/category/geek-bits/)
 * others? Get in touch if you think your blog should be here......
 
 
@@ -135,3 +140,4 @@ MvvmCross is licensed under the [MS-PL License](http://opensource.org/licenses/m
 [mvxtwitter]: https://twitter.com/MvvmCross "MvvmCross on Twitter"
 [mvxmail]: http://slodge.blogspot.co.uk/2013/06/my-standard-reply-to-mvvmcross-support.html "MvvmCross e-mail"
 [mvxv3]: http://slodge.blogspot.co.uk/2013/02/mvvmcross-v3.html "MvvmCross v3"
+[lothrop]: http://kerry.lothrop.de/tag/mvvmcross/ "Kerry Lothrop's blog"
