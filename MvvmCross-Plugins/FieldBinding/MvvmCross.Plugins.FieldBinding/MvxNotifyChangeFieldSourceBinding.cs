@@ -5,11 +5,12 @@
 //
 // Project Lead - Stuart Lodge, @slodge, me@slodge.com
 
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.WeakSubscription;
-using Cirrious.MvvmCross.Binding.Bindings.Source;
+using MvvmCross.Platform;
+using MvvmCross.Platform.WeakSubscription;
+using MvvmCross.Binding.Bindings.Source;
 using System;
 using System.Reflection;
+using MvvmCross.FieldBinding;
 
 namespace MvvmCross.Plugins.FieldBinding
 {

@@ -8,10 +8,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Exceptions;
-using Cirrious.CrossCore.Platform;
-using Cirrious.CrossCore.Plugins;
+using MvvmCross.Platform;
+using MvvmCross.Platform.Exceptions;
+using MvvmCross.Platform.Platform;
+using MvvmCross.Platform.Plugins;
 
 namespace MvvmCross.Plugins.All
 {
@@ -29,9 +29,10 @@ namespace MvvmCross.Plugins.All
                 typeof(MvvmCross.Plugins.Email.PluginLoader),
                 typeof(MvvmCross.Plugins.File.PluginLoader),
                 typeof(MvvmCross.Plugins.Json.PluginLoader),
-                typeof(MvvmCross.Plugins.JsonLocalisation.PluginLoader),
+                typeof(MvvmCross.Plugins.JsonLocalization.PluginLoader),
                 typeof(MvvmCross.Plugins.Location.PluginLoader),
                 typeof(MvvmCross.Plugins.Messenger.PluginLoader),
+                typeof(MvvmCross.Plugins.MethodBinding.PluginLoader),
                 typeof(MvvmCross.Plugins.Network.PluginLoader),
                 typeof(MvvmCross.Plugins.PhoneCall.PluginLoader),
                 typeof(MvvmCross.Plugins.PictureChooser.PluginLoader),

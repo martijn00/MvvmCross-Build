@@ -58,9 +58,9 @@
       <Project>{19EE04D6-7EE0-4FE8-AB10-4623D93F165A}</Project>
       <Name>MvvmCross.Plugins.File</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\JsonLocalisation\MvvmCross.Plugins.JsonLocalisation\MvvmCross.Plugins.JsonLocalisation.csproj">
+    <ProjectReference Include="..\..\JsonLocalization\MvvmCross.Plugins.JsonLocalization\MvvmCross.Plugins.JsonLocalization.csproj">
       <Project>{71D719FA-95B0-4A05-B064-AB8D0B7085DF}</Project>
-      <Name>MvvmCross.Plugins.JsonLocalisation</Name>
+      <Name>MvvmCross.Plugins.JsonLocalization</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Json\MvvmCross.Plugins.Json\MvvmCross.Plugins.Json.csproj">
       <Project>{D518E8E6-3CE6-4706-A286-E8BC6A2F64DC}</Project>
@@ -73,6 +73,10 @@
     <ProjectReference Include="..\..\Messenger\MvvmCross.Plugins.Messenger\MvvmCross.Plugins.Messenger.csproj">
       <Project>{299C250C-50E4-4522-AADC-C31B9AAC62D3}</Project>
       <Name>MvvmCross.Plugins.Messenger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MethodBinding\MvvmCross.Plugins.MethodBinding\MvvmCross.Plugins.MethodBinding.csproj">
+      <Project>{f681045a-852f-4a2d-953d-4dd9b75a2f93}</Project>
+      <Name>MvvmCross.Plugins.MethodBinding</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\PhoneCall\MvvmCross.Plugins.PhoneCall\MvvmCross.Plugins.PhoneCall.csproj">
       <Project>{97C01AFB-C43A-4B75-A456-079706A2F888}</Project>
@@ -124,15 +128,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Cirrious.CrossCore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.4.0.0-beta5\lib\portable-win+net45+wp8+win8+wpa81\Cirrious.CrossCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Binding, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Binding.4.0.0-beta5\lib\portable-win+net45+wp8+win8+wpa81\Cirrious.MvvmCross.Binding.dll</HintPath>
+    <Reference Include="MvvmCross.Binding, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MvvmCross.Binding.4.0.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Binding.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Localization, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.4.0.0-beta4\lib\portable-win+net45+wp8+win8+wpa81\Cirrious.MvvmCross.Localization.dll</HintPath>
+    <Reference Include="MvvmCross.Core, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MvvmCross.Core.4.0.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MvvmCross.Localization, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MvvmCross.Binding.4.0.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Localization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MvvmCross.Platform, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MvvmCross.Platform.4.0.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
