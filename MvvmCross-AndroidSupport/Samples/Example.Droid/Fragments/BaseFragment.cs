@@ -2,10 +2,10 @@
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Support.AppCompat;
-using Cirrious.MvvmCross.Droid.Support.Fragging.Fragments;
-using Cirrious.MvvmCross.ViewModels;
+using MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Droid.Support.V7.AppCompat;
+using MvvmCross.Droid.Support.V7.Fragging.Fragments;
+using MvvmCross.Core.ViewModels;
 using Example.Droid.Activities;
 
 namespace Example.Droid.Fragments

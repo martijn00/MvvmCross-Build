@@ -1,12 +1,12 @@
 using Android.Content;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
-using Cirrious.MvvmCross.Droid.Platform;
-using Cirrious.MvvmCross.Droid.Support.Fragging.Presenter;
-using Cirrious.MvvmCross.Droid.Views;
-using Cirrious.MvvmCross.ViewModels;
+using MvvmCross.Platform.Platform;
+using MvvmCross.Droid.Views;
+using MvvmCross.Core.ViewModels;
 using System.Collections.Generic;
 using System.Reflection;
+using MvvmCross.Platform;
+using MvvmCross.Droid.Platform;
+using MvvmCross.Droid.Support.V7.Fragging.Presenter;
 
 namespace Example.Droid
 {
@@ -29,14 +29,17 @@ namespace Example.Droid
 			typeof(Android.Support.V7.Widget.Toolbar).Assembly,
 			typeof(Android.Support.V4.Widget.DrawerLayout).Assembly,
 			typeof(Android.Support.V4.View.ViewPager).Assembly,
-			typeof(Cirrious.MvvmCross.Droid.Support.RecyclerView.MvxRecyclerView).Assembly
+			typeof(MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView).Assembly
 		};
 
+        /// <summary>
+		/// This is very important to override. The default view presenter does not know how to show fragments!
+        /// </summary>
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
         {
-            var customPresenter = new MvxFragmentsPresenter();
-            Mvx.RegisterSingleton<IMvxFragmentsPresenter>(customPresenter);
-            return customPresenter;
+            var mvxFragmentsPresenter = new MvxFragmentsPresenter(AndroidViewAssemblies);
+            Mvx.RegisterSingleton<IMvxAndroidViewPresenter>(mvxFragmentsPresenter);
+            return mvxFragmentsPresenter;
         }
 
         protected override IMvxTrace CreateDebugTrace()
