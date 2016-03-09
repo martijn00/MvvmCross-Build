@@ -6,9 +6,9 @@
 // Project Lead - Tomasz Cielecki, @cheesebaron, mvxplugins@ostebaronen.dk
 // Contributor - Marcos Cobeña Morián, @CobenaMarcos, marcoscm@me.com
 
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.ViewModels;
-using Cirrious.MvvmCross.Views;
+using MvvmCross.Platform;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Core.Views;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -16,9 +16,9 @@ using Xamarin.Forms;
 namespace MvvmCross.Forms.Presenter.Core
 {
     public class MvxFormsPagePresenter
-        : MvxViewPresenter, IMvxViewPresenter
+        : MvxViewPresenter
     {
-        protected Application _mvxFormsApp;
+        private Application _mvxFormsApp;
 
         public Application MvxFormsApp
         {
@@ -39,7 +39,7 @@ namespace MvvmCross.Forms.Presenter.Core
 
         public MvxFormsPagePresenter(Application mvxFormsApp)
         {
-            _mvxFormsApp = mvxFormsApp;
+            MvxFormsApp = mvxFormsApp;
         }
 
         public override async void ChangePresentation(MvxPresentationHint hint)
@@ -48,7 +48,7 @@ namespace MvvmCross.Forms.Presenter.Core
 
             if (hint is MvxClosePresentationHint)
             {
-                var mainPage = _mvxFormsApp.MainPage as NavigationPage;
+                var mainPage = MvxFormsApp.MainPage as NavigationPage;
 
                 if (mainPage == null)
                 {
@@ -56,20 +56,14 @@ namespace MvvmCross.Forms.Presenter.Core
                 }
                 else
                 {
-                    // TODO - perhaps we should do more here... also async void is a boo boo
-                    await mainPage.PopAsync();
+                    mainPage.PopAsync();
                 }
             }
         }
 
-        public void AddPresentationHintHandler<THint>(Func<THint, bool> action)
-            where THint : MvxPresentationHint
+        public override void Show(MvxViewModelRequest request)
         {
-        }
-
-        public override async void Show(MvxViewModelRequest request)
-        {
-            if (await TryShowPage(request))
+			if (TryShowPage(request))
                 return;
 
             Mvx.Error("Skipping request for {0}", request.ViewModelType.Name);
@@ -79,7 +73,7 @@ namespace MvvmCross.Forms.Presenter.Core
         {
         }
 
-        private async Task<bool> TryShowPage(MvxViewModelRequest request)
+        private bool TryShowPage(MvxViewModelRequest request)
         {
             var page = MvxPresenterHelpers.CreatePage(request);
             if (page == null)
@@ -93,18 +87,20 @@ namespace MvvmCross.Forms.Presenter.Core
             if (mainPage == null)
             {
                 _mvxFormsApp.MainPage = new NavigationPage(page);
-                mainPage = _mvxFormsApp.MainPage as NavigationPage;
+                mainPage = MvxFormsApp.MainPage as NavigationPage;
                 CustomPlatformInitialization(mainPage);
             }
             else
             {
                 try
                 {
-                    await mainPage.PushAsync(page);
+					// calling this sync blocks UI and never navigates hence code continues regardless here
+					mainPage.PushAsync(page);
                 }
                 catch (Exception e)
                 {
                     Mvx.Error("Exception pushing {0}: {1}\n{2}", page.GetType(), e.Message, e.StackTrace);
+                    return false;
                 }
             }
 

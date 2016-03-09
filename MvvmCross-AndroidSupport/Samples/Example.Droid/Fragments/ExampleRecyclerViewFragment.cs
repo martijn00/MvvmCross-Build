@@ -5,17 +5,15 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Cirrious.CrossCore.WeakSubscription;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Support.Fragging;
-using Cirrious.MvvmCross.Droid.Support.Fragging.Fragments;
-using Cirrious.MvvmCross.Droid.Support.RecyclerView;
-using Cirrious.MvvmCross.Droid.Support.V4;
+using MvvmCross.Platform.WeakSubscription;
+using MvvmCross.Droid.Support.V7.RecyclerView;
+using MvvmCross.Droid.Support.V4;
 using Example.Core.ViewModels;
+using MvvmCross.Droid.Support.V7.Fragging.Attributes;
 
 namespace Example.Droid.Fragments
 {
-    [MvxFragment]
+    [MvxFragment(typeof(MainViewModel), Resource.Id.content_frame)]
     [Register("example.droid.fragments.ExampleRecyclerViewFragment")]
     public class ExampleRecyclerViewFragment : BaseFragment<ExampleRecyclerViewModel>
     {

@@ -5,9 +5,9 @@
 //
 // Project Lead - Stuart Lodge, @slodge, me@slodge.com
 
-using Cirrious.CrossCore.Exceptions;
-using Cirrious.CrossCore.Platform;
-using Cirrious.CrossCore.WindowsCommon.Platform;
+using MvvmCross.Platform.Exceptions;
+using MvvmCross.Platform.Platform;
+using MvvmCross.Platform.WindowsCommon.Platform;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -53,22 +53,13 @@ namespace MvvmCross.Plugins.File.WindowsCommon
             }
         }
 
-        public override bool TryMove(string from, string to, bool deleteExistingTo)
+        public override bool TryMove(string from, string to, bool overwrite)
         {
             try
             {
-                StorageFile fromFile;
+                var fromFile = StorageFileFromRelativePath(from);
 
-                try
-                {
-                    fromFile = StorageFileFromRelativePath(from);
-                }
-                catch (FileNotFoundException)
-                {
-                    return false;
-                }
-
-                if (deleteExistingTo)
+                if (overwrite)
                 {
                     if (!SafeDeleteFile(to))
                     {
@@ -86,6 +77,35 @@ namespace MvvmCross.Plugins.File.WindowsCommon
             catch (Exception exception)
             {
                 MvxTrace.Trace("Exception during file move from {0} to {1} - {2}", from, to, exception.ToLongString());
+                return false;
+            }
+        }
+
+        public override bool TryCopy(string @from, string to, bool overwrite)
+        {
+            try
+            {
+                var fromFile = StorageFileFromRelativePath(from);
+
+                var fullToPath = ToFullPath(to);
+                var toDirectory = Path.GetDirectoryName(fullToPath);
+                var toFileName = Path.GetFileName(fullToPath);
+
+                if (overwrite)
+                {
+                    var toFile = StorageFileFromRelativePath(to);
+                    fromFile.CopyAndReplaceAsync(toFile).Await();
+                }
+                else
+                {
+                    var toStorageFolder = StorageFolder.GetFolderFromPathAsync(toDirectory).Await();
+                    fromFile.CopyAsync(toStorageFolder, toFileName).Await();
+                }
+                return true;
+            }
+            catch (Exception exception)
+            {
+                MvxTrace.Trace("Exception during file copy from {0} to {1} - {2}", from, to, exception.ToLongString());
                 return false;
             }
         }
@@ -158,7 +178,14 @@ namespace MvvmCross.Plugins.File.WindowsCommon
             if (string.IsNullOrEmpty(folderPath))
                 return rootFolder;
             var currentFolder = await CreateFolderAsync(rootFolder, Path.GetDirectoryName(folderPath)).ConfigureAwait(false);
-            return await currentFolder.CreateFolderAsync(Path.GetFileName(folderPath), CreationCollisionOption.OpenIfExists).AsTask().ConfigureAwait(false);
+
+            //folder name may be empty if original path was ended by a separator like My/Custom/Path/ instead of My/Custom/Path
+            var folderName = Path.GetFileName(folderPath);
+            if (string.IsNullOrEmpty(folderName))
+                return currentFolder;
+            else
+                return await currentFolder.CreateFolderAsync(Path.GetFileName(folderPath), CreationCollisionOption.OpenIfExists).AsTask().ConfigureAwait(false);
+
         }
 
         public override IEnumerable<string> GetFilesIn(string folderPath)
