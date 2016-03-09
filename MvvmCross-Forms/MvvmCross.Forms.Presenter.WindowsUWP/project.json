@@ -1,7 +1,10 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-    "MvvmCross.HotTuna.MvvmCrossLibraries": "4.0.0-beta5"
+    "MvvmCross.Binding": "4.0.0",
+    "MvvmCross.Core": "4.0.0",
+    "MvvmCross.Platform": "4.0.0",
+    "Xamarin.Forms": "2.0.1.6505"
   },
   "frameworks": {
     "uap10.0": {}

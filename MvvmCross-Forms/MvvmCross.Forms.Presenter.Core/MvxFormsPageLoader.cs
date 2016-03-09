@@ -1,23 +1,24 @@
-﻿using Cirrious.CrossCore;
-using Cirrious.CrossCore.IoC;
-using Cirrious.MvvmCross.ViewModels;
+﻿using MvvmCross.Platform;
+using MvvmCross.Core.ViewModels;
 using System;
-using System.Linq;
-using System.Reflection;
 using Xamarin.Forms;
+using MvvmCross.Core.Views;
+using System.Reflection;
+using MvvmCross.Platform.IoC;
+using System.Linq;
+using MvvmCross.Platform.Exceptions;
+using System.Collections.Generic;
 
 namespace MvvmCross.Forms.Presenter.Core
 {
     public class MvxFormsPageLoader : IMvxFormsPageLoader
     {
-        private MvxViewModelRequest _request;
+		private IMvxViewsContainer _viewFinder;
 
         public Page LoadPage(MvxViewModelRequest request)
         {
-            _request = request;
-
-            var pageName = GetPageName();
-            var pageType = GetPageType(pageName);
+			var pageName = GetPageName(request);
+			var pageType = GetPageType(request);
 
             if (pageType == null)
             {
@@ -33,16 +34,27 @@ namespace MvvmCross.Forms.Presenter.Core
             return page;
         }
 
-        protected virtual string GetPageName()
+		protected virtual string GetPageName(MvxViewModelRequest request)
         {
-            var viewModelName = _request.ViewModelType.Name;
+            var viewModelName = request.ViewModelType.Name;
             return viewModelName.Replace("ViewModel", "Page");
         }
 
-        protected virtual Type GetPageType(string pageName)
+		protected virtual Type GetPageType(MvxViewModelRequest request)
         {
-            return _request.ViewModelType.GetTypeInfo().Assembly.CreatableTypes()
-                .FirstOrDefault(t => t.Name == pageName);
+			if (_viewFinder == null)
+				_viewFinder = Mvx.Resolve<IMvxViewsContainer> ();
+
+			try
+			{
+				return _viewFinder.GetViewType (request.ViewModelType);
+			}
+			catch(KeyNotFoundException) 
+			{
+				var pageName = GetPageName(request);
+				return request.ViewModelType.GetTypeInfo().Assembly.CreatableTypes()
+					.FirstOrDefault(t => t.Name == pageName);
+			}
         }
     }
 }
